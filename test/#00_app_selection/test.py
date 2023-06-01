@@ -1,3 +1,4 @@
+import json
 import requests
 from bs4 import BeautifulSoup
 import urllib.request
@@ -16,14 +17,23 @@ import webbrowser
 import time
 start = time.time()
 
-py_drive_url = "https://github.com/lsb1109/apitest/tree/main/python_app"
-xl_drive_url = "https://github.com/lsb1109/apitest/tree/main/excel_app"
-js_drive_url = "https://github.com/kh1012/sproj-examples/tree/main/examples"
-xl_raw_file_url = "https://raw.githubusercontent.com/lsb1109/apitest/main/excel_app/"
+
+app_language = ['py_app_ver', 'xl_app_ver', 'js_app_ver']
+
+py_selector = "python_app/"
+xl_selector = "excel_app/"
+js_selector = "javascript_app/"
+
+git_org_link = "https://github.com/lsb1109/apitest/tree/main/"
+git_raw_link = "https://raw.githubusercontent.com/lsb1109/apitest/main/"
+
+js_drive_url = "https://github.com/kh1012/sproj-examples/tree/main/examples/"
+
 local_contents_path = r"C:\Temp\CIM_API_APP\\"
 
 tab_selector = "a.js-navigation-open.Link--primary"
-tab_link_list = [py_drive_url, xl_drive_url, js_drive_url]
+tab_link_list = [git_org_link + py_selector,
+                 git_org_link + xl_selector, js_drive_url]
 
 img_drive_url = "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/0_app_selection/source/icon/"
 ok_img = "ok.png"
@@ -33,6 +43,9 @@ update_img = "update.png"
 run_img = "run.png"
 download_img = "download_v2.png"
 type_icon_img = ["py_v2.png", "xl_v2.png", "js_v2.png"]
+
+version_json = "app_version.json"
+temp_json_path = local_contents_path + version_json
 
 selection_tool_wh = [300, 650]
 
@@ -193,6 +206,40 @@ class AppSelection(QDialog):
                          for i in temp_list]
         return temp_contents
 
+    def test(self):
+        if not os.path.isfile(temp_json_path):
+            if not os.path.exists(local_contents_path):
+                os.makedirs(local_contents_path)
+            default_dic = {app_language[0]: {},
+                           app_language[1]: {}, app_language[2]: {}}
+            with open(temp_json_path, "w") as f:
+                json.dump(default_dic, f)
+
+        req = requests.get(git_raw_link + py_selector + "01_command_line/" + version_json)
+        print(git_raw_link + py_selector + "01_command_line/" + version_json)
+        req.encoding = None
+        html = req.content
+        soup = BeautifulSoup(html, "html.parser", from_encoding="utf-8")
+        
+        print(soup)
+        current_app_key = 'lsb1109_4'
+        current_app_ver = 3554
+
+        with open(temp_json_path, "r") as f:
+            data = json.load(f)
+        old_dic = data[app_language[tab_num]]
+        last_app_ver = old_dic.get(current_app_key)
+
+        if last_app_ver and last_app_ver == current_app_ver:
+            pass
+        else:
+            old_dic.update({current_app_key: current_app_ver})
+            print("import 관련 함수 실행 코드 추가")
+
+        data.update({app_language[tab_num]: old_dic})
+        with open(temp_json_path, "w") as f:
+            json.dump(data, f)
+
     def app_list_build(self):
         all_contents_list.clear()
         self.all_items_layout_list.clear()
@@ -274,6 +321,7 @@ class AppSelection(QDialog):
         return temp_tabs
 
     def ok_fun(self):
+        self.test()
         self.close()
 
     def download_fun(self):
@@ -282,7 +330,7 @@ class AppSelection(QDialog):
         if not os.path.isfile(temp_xl_file_path):
             if not os.path.exists(local_contents_path):
                 os.makedirs(local_contents_path)
-            url = xl_raw_file_url + xl_file_name
+            url = git_raw_link + xl_selector + xl_file_name
             with open(temp_xl_file_path, "wb") as file:
                 response = requests.get(url)
                 file.write(response.content)
