@@ -22,8 +22,7 @@ js_drive_url = "https://github.com/kh1012/sproj-examples/tree/main/examples"
 xl_raw_file_url = "https://raw.githubusercontent.com/lsb1109/apitest/main/excel_app/"
 local_contents_path = r"C:\Temp\CIM_API_APP\\"
 
-tab_selector_list = ["a.js-navigation-open.Link--primary",
-                     "a.Link--primary", "a.Link--primary"]
+tab_selector = "a.js-navigation-open.Link--primary"
 tab_link_list = [py_drive_url, xl_drive_url, js_drive_url]
 
 img_drive_url = "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/0_app_selection/source/icon/"
@@ -193,11 +192,10 @@ class AppSelection(QDialog):
         self.all_items_layout_list.clear()
         for i in range(len(type_icon_img)):
             self.tab_listwidget_list[i].clear()
-            temp_contents = self.extract_soup(
-                tab_link_list[i], tab_selector_list[i])
+            temp_contents = self.extract_soup(tab_link_list[i], tab_selector)
             print(temp_contents)
-            temp_contents_list = [temp_contents[j+1]
-                                    for j in range(len(temp_contents)-1)]
+            temp_contents_list = [temp_contents[j]
+                                  for j in range(len(temp_contents))]
             temp_item_layout_list = []
             for j in temp_contents_list:
                 item = QListWidgetItem(self.tab_listwidget_list[i])
