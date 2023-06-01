@@ -41,7 +41,7 @@ all_contents_list = []
 tab_num = 0
 app_num = 0
 
-custom_style = '''
+style_type1 = '''
     QWidget{font-size: 9pt; background: rgb(20, 31, 45); color: rgb(255, 255, 255);}
     QPushButton{background: rgb(47, 59, 76); border: 1px solid; border-radius: 3px; border-color: rgb(56, 69, 90);}
     QPushButton:hover{border: 1px solid; border-radius: 3px; border-color: rgb(36, 153, 242);}
@@ -55,6 +55,12 @@ custom_style = '''
     QTabWidget::pane {border: none; margin: 0px 0px 0px 0px;}
     QTabBar::tab {background: rgb(44, 52, 63); font-weight: bold; width: 44px; height:38px; padding-bottom: 15px; padding-right: -2px;}
     QTabBar::tab:selected {background: rgb(6, 13, 20); border-left: 3px solid rgb(11, 125, 182); padding-left: -3px;}
+    '''
+
+style_type2 = '''
+    QPushButton{background: rgb(47, 59, 76); border: 1px solid; border-radius: 3px; border-color: rgb(56, 69, 90);}
+    QPushButton:hover{border: 1px solid; border-radius: 3px; border-color: rgb(70, 150, 200);}
+    QPushButton:pressed{background: rgb(31, 39, 52);}
     '''
 
 
@@ -80,7 +86,7 @@ class AppSelection(QDialog):
         void_widget = self.qwidget_create("background: rgb(12, 20, 31);")
 
         # header layout
-        header_widget = self.qwidget_create(custom_style)
+        header_widget = self.qwidget_create(style_type1)
 
         app_pixmap = self.qpixmap_create(app_img)
         header_icon = self.qlable_create(app_pixmap)
@@ -94,7 +100,7 @@ class AppSelection(QDialog):
         header_layout.setStretchFactor(header_lable, 1)
 
         # 1 layout (tab_widget)
-        self.tabs = self.qtab_create(custom_style, self.tab_changed, 0)
+        self.tabs = self.qtab_create(style_type1, self.tab_changed, 0)
 
         for i in type_icon_img:
             tab_inner = QWidget()
@@ -112,7 +118,7 @@ class AppSelection(QDialog):
         self.app_list_build()
 
         # 2 layout (btn_group)
-        sub_widget1 = self.qwidget_create(custom_style)
+        sub_widget1 = self.qwidget_create(style_type1)
 
         update_icon = self.qicon_create(update_img)
         update_btn = self.qbtn_create(update_icon, 28, self.app_list_build)
@@ -128,14 +134,14 @@ class AppSelection(QDialog):
         # independent_btn
         run_icon = self.qicon_create(run_img)
         self.run_btn = self.qbtn_create(run_icon, 24, self.ok_fun)
-        self.run_btn.setStyleSheet(custom_style)
+        self.run_btn.setStyleSheet(style_type2)
         self.all_items_layout_list[tab_num][app_num].addWidget(self.run_btn)
 
         self.download_icon = self.qicon_create(download_img)
         self.href_icon = self.qicon_create(href_img)
         self.download_btn = self.qbtn_create(
             self.download_icon, 24, self.download_fun)
-        self.download_btn.setStyleSheet(custom_style)
+        self.download_btn.setStyleSheet(style_type2)
 
         self.show()
 
@@ -193,7 +199,6 @@ class AppSelection(QDialog):
         for i in range(len(type_icon_img)):
             self.tab_listwidget_list[i].clear()
             temp_contents = self.extract_soup(tab_link_list[i], tab_selector)
-            print(temp_contents)
             temp_contents_list = [temp_contents[j]
                                   for j in range(len(temp_contents))]
             temp_item_layout_list = []
@@ -274,9 +279,9 @@ class AppSelection(QDialog):
     def download_fun(self):
         xl_file_name = all_contents_list[tab_num][app_num]
         temp_xl_file_path = local_contents_path + xl_file_name
-        if not os.path.exists(local_contents_path):
-            os.makedirs(local_contents_path)
         if not os.path.isfile(temp_xl_file_path):
+            if not os.path.exists(local_contents_path):
+                os.makedirs(local_contents_path)
             url = xl_raw_file_url + xl_file_name
             with open(temp_xl_file_path, "wb") as file:
                 response = requests.get(url)
@@ -325,7 +330,7 @@ class ManualDialog(QDialog):
         void_widget = self.qwidget_create("background: rgb(12, 20, 31);")
 
         # 1 layout
-        self.sub_widget0 = self.qwidget_create(custom_style)
+        self.sub_widget0 = self.qwidget_create(style_type1)
         self.sub_widget0.setFixedSize(746, 646)
         self.web_widget = QWebEngineView()
         self.web_widget.loadFinished.connect(self.loading_end)
@@ -339,7 +344,7 @@ class ManualDialog(QDialog):
         self.sub_widget1 = self.qwidget_create("background: transparent;")
 
         self.manual_link = self.qbtn_create(href_icon, 28, self.web_manual)
-        self.manual_link.setStyleSheet(custom_style)
+        self.manual_link.setStyleSheet(style_type1)
         self.manual_link.setFixedSize(160, 28)
         self.manual_link.setText(" Detail With Browser")
 
