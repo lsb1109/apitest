@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtCore import QUrl
 
 import sys
 import os
@@ -15,13 +14,12 @@ import re
 import webbrowser
 
 import time
-
 start = time.time()
 
-py_drive_url = "https://github.com/kh1012/python-examples/tree/main/python_app"
-xl_drive_url = "https://github.com/kh1012/python-examples/tree/main/excel_app"
+py_drive_url = "https://github.com/lsb1109/apitest/tree/main/python_app"
+xl_drive_url = "https://github.com/lsb1109/apitest/tree/main/excel_app"
 js_drive_url = "https://github.com/kh1012/sproj-examples/tree/main/examples"
-xl_raw_file_url = "https://raw.githubusercontent.com/kh1012/python-examples/main/excel_app/"
+xl_raw_file_url = "https://raw.githubusercontent.com/lsb1109/apitest/main/excel_app/"
 local_contents_path = r"C:\Temp\CIM_API_APP\\"
 
 tab_selector_list = ["a.js-navigation-open.Link--primary",
@@ -55,13 +53,9 @@ custom_style = '''
     QListWidget::item:selected{background: rgb(11, 125, 182); color: rgb(255, 255, 255);}
     QScrollBar:vertical{background-color: rgb(41, 41, 41); width: 15px; margin: 2px 1px 2px 5px; border: 1px transparent #2A2929; border-radius: 4px;}
     QScrollBar::handle:vertical{background-color: rgb(63, 68, 75); min-height: 5px; border-radius: 4px;}
-    QScrollBar::sub-line:vertical{background: transparent;}
-    QScrollBar::add-line:vertical{background: transparent;}
-    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{background: none;}
-    QTabWidget {background: rgb(20, 31, 45);}
     QTabWidget::pane {border: none; margin: 0px 0px 0px 0px;}
-    QTabBar::tab {background: rgb(44, 52, 63); font-weight: bold; width: 44px; height:38px; color: rgb(150, 160, 160); padding-bottom: 15px; padding-right: -2px;}
-    QTabBar::tab:selected {background: rgb(6, 13, 20); color: white; border-left: 3px solid rgb(11, 125, 182); padding-left: -3px;}
+    QTabBar::tab {background: rgb(44, 52, 63); font-weight: bold; width: 44px; height:38px; padding-bottom: 15px; padding-right: -2px;}
+    QTabBar::tab:selected {background: rgb(6, 13, 20); border-left: 3px solid rgb(11, 125, 182); padding-left: -3px;}
     '''
 
 
@@ -101,10 +95,7 @@ class AppSelection(QDialog):
         header_layout.setStretchFactor(header_lable, 1)
 
         # 1 layout (tab_widget)
-        self.tabs = QTabWidget()
-        self.tabs.setStyleSheet(custom_style)
-        self.tabs.setTabPosition(QTabWidget.West)
-        self.tabs.currentChanged.connect(self.tab_changed)
+        self.tabs = self.qtab_create(custom_style, self.tab_changed, 0)
 
         for i in type_icon_img:
             tab_inner = QWidget()
@@ -125,8 +116,7 @@ class AppSelection(QDialog):
         sub_widget1 = self.qwidget_create(custom_style)
 
         update_icon = self.qicon_create(update_img)
-        update_btn = self.qbtn_create(
-            update_icon, 28, self.app_list_build)
+        update_btn = self.qbtn_create(update_icon, 28, self.app_list_build)
 
         self.qlayout_create(0, sub_widget1, [1, update_btn], (10, 6, 10, 6))
 
@@ -205,15 +195,9 @@ class AppSelection(QDialog):
             self.tab_listwidget_list[i].clear()
             temp_contents = self.extract_soup(
                 tab_link_list[i], tab_selector_list[i])
-            if i == 0:
-                temp_contents_list = [j for j in temp_contents if ord(
-                    j[0]) >= 48 and ord(j[0]) <= 57]
-            elif i == 1:
-                temp_contents_list = [temp_contents[j+1]
-                                      for j in range(len(temp_contents)-1)]
-            else:
-                temp_contents_list = [temp_contents[j+1]
-                                      for j in range(len(temp_contents)-1)]
+            print(temp_contents)
+            temp_contents_list = [temp_contents[j+1]
+                                    for j in range(len(temp_contents)-1)]
             temp_item_layout_list = []
             for j in temp_contents_list:
                 item = QListWidgetItem(self.tab_listwidget_list[i])
@@ -263,11 +247,11 @@ class AppSelection(QDialog):
         temp_icon.addPixmap(temp_pixmap)
         return temp_icon
 
-    def qbtn_create(self, icon, size, funtion):
+    def qbtn_create(self, icon, size, function):
         temp_btn = QPushButton()
         temp_btn.setFixedSize(size, size)
         temp_btn.setIcon(icon)
-        temp_btn.clicked.connect(funtion)
+        temp_btn.clicked.connect(function)
         return temp_btn
 
     def qlable_create(self, inner):
@@ -277,6 +261,14 @@ class AppSelection(QDialog):
         else:
             temp_lable.setPixmap(inner)
         return temp_lable
+
+    def qtab_create(self, style, function, position):
+        temp_tabs = QTabWidget()
+        temp_tabs.setStyleSheet(style)
+        temp_tabs.currentChanged.connect(function)
+        if position == 0:
+            temp_tabs.setTabPosition(QTabWidget.West)
+        return temp_tabs
 
     def ok_fun(self):
         self.close()
@@ -407,11 +399,11 @@ class ManualDialog(QDialog):
         temp_icon.addPixmap(temp_pixmap)
         return temp_icon
 
-    def qbtn_create(self, icon, size, funtion):
+    def qbtn_create(self, icon, size, function):
         temp_btn = QPushButton()
         temp_btn.setFixedSize(size, size)
         temp_btn.setIcon(icon)
-        temp_btn.clicked.connect(funtion)
+        temp_btn.clicked.connect(function)
         return temp_btn
 
     def qlable_create(self, inner):
