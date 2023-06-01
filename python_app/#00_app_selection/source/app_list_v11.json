@@ -1,0 +1,22 @@
+{
+    "code_link": {
+        "1 : Command Line": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/1_command_line/temp_index_v11.html",
+        "2 : API Connect XL": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/2_api_connect_xl/temp_index_v10.html",
+        "3 : Easy Abutment": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/3_easy_abutment/temp_index_v10.html",
+        "4 : Sample Test1": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/3_easy_abutment/temp_index_v10.html",
+        "5 : Sample Test2": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/3_easy_abutment/temp_index_v10.html",
+        "6 : Sample Test3": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/3_easy_abutment/temp_index_v10.html",
+        "7 : Sample Test4": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/3_easy_abutment/temp_index_v10.html",
+        "8 : Sample Test5": "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/3_easy_abutment/temp_index_v10.html"
+    },    
+    "manual_link": {
+        "1 : Command Line": "https://cim-learning.refined.site/space/manualCIM/562725403",
+        "2 : API Connect XL": "https://cim-learning.refined.site/space/manualCIM/529268891/Rebar+Draw+Mode",
+        "3 : Easy Abutment": "https://www.midasuser.com/ko/downloads/downloads.asp?field=2&prog=CIM",
+        "4 : Sample Test1": "https://www.youtube.com/channel/UCUHBxedYzJ1Vf7Y5twXqVeA",
+        "5 : Sample Test2": "https://www.youtube.com/channel/UCUHBxedYzJ1Vf7Y5twXqVeA",
+        "6 : Sample Test3": "https://www.youtube.com/channel/UCUHBxedYzJ1Vf7Y5twXqVeA",
+        "7 : Sample Test4": "https://www.youtube.com/channel/UCUHBxedYzJ1Vf7Y5twXqVeA",
+        "8 : Sample Test5": "https://www.youtube.com/channel/UCUHBxedYzJ1Vf7Y5twXqVeA"
+    }
+}
