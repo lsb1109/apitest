@@ -196,11 +196,15 @@ class AppSelection(QDialog):
         except:
             pass
 
-    def extract_soup(self, link, search):
+    def extract_soup(self, link):
         req = requests.get(link)
         req.encoding = None
         html = req.content
         soup = BeautifulSoup(html, "html.parser", from_encoding="utf-8")
+        return soup
+    
+    def convert_soup_data(self, link, search):
+        soup = self.extract_soup(link)
         temp_list = soup.select(search)
         temp_contents = [re.search('>(.+?)<', str(i)).group(1)
                          for i in temp_list]
@@ -215,37 +219,32 @@ class AppSelection(QDialog):
             with open(temp_json_path, "w") as f:
                 json.dump(default_dic, f)
 
-        req = requests.get(git_raw_link + py_selector + "01_command_line/" + version_json)
-        print(git_raw_link + py_selector + "01_command_line/" + version_json)
-        req.encoding = None
-        html = req.content
-        soup = BeautifulSoup(html, "html.parser", from_encoding="utf-8")
-        
-        print(soup)
-        current_app_key = 'lsb1109_4'
-        current_app_ver = 3554
+        soup = self.extract_soup(git_raw_link + py_selector + all_contents_list[tab_num][app_num] + "/" + version_json)
+        app_ver_dict = json.loads(str(soup))        
+        current_app_key = list(app_ver_dict.keys())[0]
+        current_app_ver = list(app_ver_dict.values())[0]
 
         with open(temp_json_path, "r") as f:
-            data = json.load(f)
-        old_dic = data[app_language[tab_num]]
-        last_app_ver = old_dic.get(current_app_key)
+            all_dict = json.load(f)
+        target_old_dict = all_dict[app_language[tab_num]]
+        last_app_ver = target_old_dict.get(current_app_key)
 
         if last_app_ver and last_app_ver == current_app_ver:
             pass
         else:
-            old_dic.update({current_app_key: current_app_ver})
+            target_old_dict.update({current_app_key: current_app_ver})
             print("import 관련 함수 실행 코드 추가")
 
-        data.update({app_language[tab_num]: old_dic})
-        with open(temp_json_path, "w") as f:
-            json.dump(data, f)
+            all_dict.update({app_language[tab_num]: target_old_dict})
+            with open(temp_json_path, "w") as f:
+                json.dump(all_dict, f)
 
     def app_list_build(self):
         all_contents_list.clear()
         self.all_items_layout_list.clear()
         for i in range(len(type_icon_img)):
             self.tab_listwidget_list[i].clear()
-            temp_contents = self.extract_soup(tab_link_list[i], tab_selector)
+            temp_contents = self.convert_soup_data(tab_link_list[i], tab_selector)
             temp_contents_list = [temp_contents[j]
                                   for j in range(len(temp_contents))]
             temp_item_layout_list = []
