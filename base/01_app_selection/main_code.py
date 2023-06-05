@@ -58,8 +58,6 @@ def version_compare(target_type, content_name):
 
 version_compare("tool_ver", "01_app_selection")
 
-
-
 import sys
 import re
 import webbrowser
