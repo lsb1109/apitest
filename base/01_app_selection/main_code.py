@@ -10,11 +10,11 @@ try:
     from PyQt5.QtCore import *
     from PyQt5.QtWebEngineWidgets import QWebEngineView
 
-    import time
+    # import time
     
 except:
     pass
-start = time.time()
+# start = time.time()
 
 
 app_language = ['py_app_ver', 'xl_app_ver', 'js_app_ver']
@@ -461,7 +461,7 @@ try:
     first_app = QApplication([sys.argv,  '--no-sandbox'])
     dialog = ManualDialog()
 
-    print(time.time() - start)
+    # print(time.time() - start)
 
     first_app.exec_()
 
