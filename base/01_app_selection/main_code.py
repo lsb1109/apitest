@@ -48,7 +48,7 @@ package_txt = "requirements.txt"
 
 selection_tool_wh = [300, 650]
 
-all_contents_list = []
+all_contents_list = [0]
 
 tab_num = 0
 app_num = 0
