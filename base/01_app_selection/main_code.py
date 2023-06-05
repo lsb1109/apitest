@@ -4,10 +4,14 @@ import webbrowser
 
 import urllib.request
 
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+try:
+    from PyQt5.QtWidgets import *
+    from PyQt5.QtGui import *
+    from PyQt5.QtCore import *
+    from PyQt5.QtWebEngineWidgets import QWebEngineView
+
+except:
+    pass
 
 import time
 start = time.time()
