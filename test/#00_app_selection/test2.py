@@ -3,6 +3,7 @@ from multiprocessing import *
 import win32com.client as win32
 
 local_xl_path = r"C:\Temp\CIM_API_APP\\"
+py_link_root = "https://raw.githubusercontent.com/lsb1109/apitest/main/python_app/"
 main_code_name = "/main_code.py"
 
 q = Queue()
@@ -13,7 +14,7 @@ selected_data = q.get()
 contents_name = selected_data[1][selected_data[2]]
 
 if selected_data[0] == 0:
-    second_code = extract_code(link_root + str(contents_name) + main_code_name)
+    second_code = extract_code(py_link_root + str(contents_name) + main_code_name)
     exec(second_code)
 
 elif selected_data[0] == 1:
