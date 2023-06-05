@@ -1,5 +1,10 @@
 from multiprocessing import *
 
+import win32com.client as win32
+
+local_xl_path = r"C:\Temp\CIM_API_APP\\"
+main_code_name = "/main_code.py"
+
 q = Queue()
 p = Process(target=sub_process_code, args=(q, ))
 p.start()
@@ -8,7 +13,7 @@ selected_data = q.get()
 contents_name = selected_data[1][selected_data[2]]
 
 if selected_data[0] == 0:
-    second_code = extract_code(main_link + str(contents_name) + py_code_file)
+    second_code = extract_code(link_root + str(contents_name) + main_code_name)
     exec(second_code)
 
 elif selected_data[0] == 1:
