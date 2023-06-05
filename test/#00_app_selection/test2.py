@@ -1,6 +1,11 @@
 from multiprocessing import *
+from pip._internal import main
 
-import win32com.client as win32
+try:
+    import win32com.client as win32
+except ImportError:
+    main(["install", "pypiwin32"])
+    import win32com.client as win32
 
 local_xl_path = r"C:\Temp\CIM_API_APP\\"
 py_link_root = "https://raw.githubusercontent.com/lsb1109/apitest/main/python_app/"
