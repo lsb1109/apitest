@@ -5,8 +5,8 @@ from pip._internal import main
 import requests
 from bs4 import BeautifulSoup
 
-version_key_type = ["tool_ver", "py_app_ver", "xl_app_ver", "js_app_ver"]
-selector_list = ["base/", "python_app/", "excel_app/", "javascript_app/"]
+version_key_type = ["py_app_ver", "xl_app_ver", "js_app_ver", "tool_ver"]
+selector_list = ["python_app/", "excel_app/", "javascript_app/", "base/"]
 
 git_raw_link = "https://raw.githubusercontent.com/lsb1109/apitest/main/"
 
@@ -33,6 +33,7 @@ def version_compare(target_type, content_name):
         with open(temp_json_path, "w") as f:
             json.dump(default_dic, f)
 
+    print(git_raw_link + selector +  content_name + "/" + version_json)
     json_soup = extract_soup(git_raw_link + selector +  content_name + "/" + version_json)
     app_ver_dict = json.loads(str(json_soup))        
     current_app_key = list(app_ver_dict.keys())[0]
@@ -72,8 +73,6 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 import time
 start = time.time()
 
-
-app_language = ['py_app_ver', 'xl_app_ver', 'js_app_ver']
 
 py_selector = "python_app/"
 xl_selector = "excel_app/"
@@ -339,9 +338,29 @@ class AppSelection(QDialog):
         return temp_tabs
 
     def ok_fun(self):
-        version_compare(app_language[tab_num], all_contents_list[tab_num][app_num])
+        print(version_key_type[tab_num])
+        print(all_contents_list[tab_num][app_num])
+        version_compare(version_key_type[tab_num], all_contents_list[tab_num][app_num])
         self.close()
 
+    def download_fun():
+        xl_file_name = "01_Box Culvert API/"
+        temp_xl_file_path = local_contents_path + xl_file_name
+        if not os.path.exists(temp_xl_file_path):
+            if not os.path.exists(local_contents_path):
+                os.makedirs(local_contents_path)        
+            os.makedirs(temp_xl_file_path)
+
+            temp_contents = convert_soup_data(tab_link_list[1] + xl_file_name, tab_selector)
+            
+            for i in temp_contents:
+                url = git_raw_link + xl_selector + xl_file_name + i
+                with open(temp_xl_file_path + i, "wb") as file:
+                    response = requests.get(url)
+                    file.write(response.content)
+        else:
+            os.startfile(local_contents_path)
+        
     def download_fun(self):
         xl_file_name = all_contents_list[tab_num][app_num]
         temp_xl_file_path = local_contents_path + xl_file_name
