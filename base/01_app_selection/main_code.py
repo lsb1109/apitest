@@ -33,7 +33,6 @@ def version_compare(target_type, content_name):
         with open(temp_json_path, "w") as f:
             json.dump(default_dic, f)
 
-    print(git_raw_link + selector +  content_name + "/" + version_json)
     json_soup = extract_soup(git_raw_link + selector +  content_name + "/" + version_json)
     app_ver_dict = json.loads(str(json_soup))        
     current_app_key = list(app_ver_dict.keys())[0]
@@ -47,11 +46,11 @@ def version_compare(target_type, content_name):
     if last_app_ver and last_app_ver == current_app_ver:
         pass
     else:
-        print("import 관련 함수 실행 코드 추가")
-        txt_soup = extract_soup(git_raw_link + selector +  content_name + "/" + package_txt)            
-        lines = str(txt_soup).splitlines()
-        for temp_pkg in lines:
-            main(["install", temp_pkg])
+        if target_type == version_key_type[0]:
+            txt_soup = extract_soup(git_raw_link + selector +  content_name + "/" + package_txt)            
+            lines = str(txt_soup).splitlines()
+            for temp_pkg in lines:
+                main(["install", temp_pkg])
         target_old_dict.update({current_app_key: current_app_ver})
         all_dict.update({target_type: target_old_dict})
         with open(temp_json_path, "w") as f:
