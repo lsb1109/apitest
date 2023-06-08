@@ -6,8 +6,10 @@ q = Queue()
 p = Process(target=sub_process_code, args=(q, ))
 p.start()
 selected_data = q.get()
+print(selected_data)
 
 contents_name = selected_data[1][selected_data[2]]
+print(contents_name)
 
 if selected_data[0] == 0:
     second_code = extract_code(py_link_root + str(contents_name) + main_code_name)
