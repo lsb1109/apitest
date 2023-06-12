@@ -46,8 +46,8 @@ def version_compare(target_type, content_name):
     if last_app_ver and last_app_ver == current_app_ver:
         pass
     else:
-        if target_type == version_key_type[0]:
-            txt_soup = extract_soup(git_raw_link + selector +  content_name + "/" + package_txt)            
+        if target_type == version_key_type[0] or target_type == version_key_type[3]:
+            txt_soup = extract_soup(git_raw_link + selector +  content_name + "/" + package_txt)
             lines = str(txt_soup).splitlines()
             for temp_pkg in lines:
                 main(["install", temp_pkg])
@@ -71,7 +71,6 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 import time
 start = time.time()
-
 
 py_selector = "python_app/"
 xl_selector = "excel_app/"
@@ -239,7 +238,7 @@ class AppSelection(QDialog):
                     self.download_btn)
                 xl_file_name = all_contents_list[tab_num][app_num]
                 temp_xl_file_path = local_contents_path + xl_file_name
-                if not os.path.isfile(temp_xl_file_path):
+                if not os.path.exists(temp_xl_file_path):
                     self.download_btn.setIcon(self.download_icon)
                 else:
                     self.download_btn.setIcon(self.href_icon)
@@ -342,34 +341,21 @@ class AppSelection(QDialog):
         version_compare(version_key_type[tab_num], all_contents_list[tab_num][app_num])
         self.close()
 
-    def download_fun():
-        xl_file_name = "01_Box Culvert API/"
+    def download_fun(self):
+        xl_file_name = all_contents_list[tab_num][app_num] + "/"
         temp_xl_file_path = local_contents_path + xl_file_name
         if not os.path.exists(temp_xl_file_path):
             if not os.path.exists(local_contents_path):
                 os.makedirs(local_contents_path)        
             os.makedirs(temp_xl_file_path)
 
-            temp_contents = convert_soup_data(tab_link_list[1] + xl_file_name, tab_selector)
+            temp_contents = self.convert_soup_data(tab_link_list[1] + xl_file_name, tab_selector)
             
             for i in temp_contents:
                 url = git_raw_link + xl_selector + xl_file_name + i
                 with open(temp_xl_file_path + i, "wb") as file:
                     response = requests.get(url)
                     file.write(response.content)
-        else:
-            os.startfile(local_contents_path)
-        
-    def download_fun(self):
-        xl_file_name = all_contents_list[tab_num][app_num]
-        temp_xl_file_path = local_contents_path + xl_file_name
-        if not os.path.isfile(temp_xl_file_path):
-            if not os.path.exists(local_contents_path):
-                os.makedirs(local_contents_path)
-            url = git_raw_link + xl_selector + xl_file_name
-            with open(temp_xl_file_path, "wb") as file:
-                response = requests.get(url)
-                file.write(response.content)
             self.selected_app()
         else:
             os.startfile(local_contents_path)
