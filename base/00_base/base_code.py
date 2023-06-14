@@ -17,7 +17,7 @@ if selected_data[0] == 0:
 elif selected_data[0] == 1:
     excel = win32.Dispatch("Excel.Application")
     excel.Visible = True
-    workbook = excel.Workbooks.Open(local_xl_path + contents_name)
+    workbook = excel.Workbooks.Open(local_xl_path + contents_name + "/" + contents_name + ".xlsm")
 
 else:
     pass

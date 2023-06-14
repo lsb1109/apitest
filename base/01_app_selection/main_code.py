@@ -89,7 +89,7 @@ tab_link_list = [git_org_link + py_selector,
 
 img_drive_url = "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/0_app_selection/source/icon/"
 ok_img = "ok.png"
-app_img = "app_selection_v3.png"
+app_img = "app_selection_v7.png"
 href_img = "href_v3.png"
 update_img = "update.png"
 run_img = "run.png"
@@ -126,6 +126,7 @@ style_type2 = '''
     QPushButton{background: rgb(47, 59, 76); border: 1px solid; border-radius: 3px; border-color: rgb(56, 69, 90);}
     QPushButton:hover{border: 1px solid; border-radius: 3px; border-color: rgb(70, 150, 200);}
     QPushButton:pressed{background: rgb(31, 39, 52);}
+    QPushButton:disabled{border: 1px solid; border-radius: 3px; border-color: rgb(85, 130, 160); background: rgb(100, 100, 100);}
     '''
 
 
@@ -154,8 +155,8 @@ class AppSelection(QDialog):
         header_widget = self.qwidget_create(style_type1)
 
         app_pixmap = self.qpixmap_create(app_img)
-        header_icon = self.qlable_create(app_pixmap)
-        header_lable = self.qlable_create("API Extension Tool")
+        header_icon = self.qlabel_create(app_pixmap)
+        header_lable = self.qlabel_create(" API Extension Tool")
         header_lable.setFixedHeight(24)
         header_lable.setStyleSheet("font-size: 18px;")
         header_lable.setFont(QFont("Noto Sans CJK KR Bold", 1))
@@ -180,7 +181,7 @@ class AppSelection(QDialog):
             self.tab_widget_list.append(tab_inner)
             self.tab_listwidget_list.append(tab_app_list)
 
-        self.app_list_build()
+        self.app_list_build() 
 
         # 2 layout (btn_group)
         sub_widget1 = self.qwidget_create(style_type1)
@@ -240,8 +241,12 @@ class AppSelection(QDialog):
                 temp_xl_file_path = local_contents_path + xl_file_name
                 if not os.path.exists(temp_xl_file_path):
                     self.download_btn.setIcon(self.download_icon)
+                    self.run_btn.setDisabled(True)
                 else:
                     self.download_btn.setIcon(self.href_icon)
+                    self.run_btn.setDisabled(False)
+            else:
+                self.run_btn.setDisabled(False)
             self.all_items_layout_list[tab_num][app_num].addWidget(
                 self.run_btn)
             self.select_sig.emit(app_num)
@@ -268,7 +273,7 @@ class AppSelection(QDialog):
                 item = QListWidgetItem(self.tab_listwidget_list[i])
                 temp_item_widget = self.qwidget_create(
                     "background: transparent;")
-                temp_item_label = self.qlable_create(j)
+                temp_item_label = self.qlabel_create(j)
                 temp_item_layout = self.qlayout_create(
                     0, temp_item_widget, [temp_item_label], (6, 0, 4, 0))
                 temp_item_layout.setStretchFactor(temp_item_label, 1)
@@ -319,7 +324,7 @@ class AppSelection(QDialog):
         temp_btn.clicked.connect(function)
         return temp_btn
 
-    def qlable_create(self, inner):
+    def qlabel_create(self, inner):
         temp_lable = QLabel()
         if type(inner) == str:
             temp_lable.setText(inner)
@@ -358,7 +363,7 @@ class AppSelection(QDialog):
                     file.write(response.content)
             self.selected_app()
         else:
-            os.startfile(local_contents_path)
+            os.startfile(temp_xl_file_path)
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -479,7 +484,7 @@ class ManualDialog(QDialog):
         temp_btn.clicked.connect(function)
         return temp_btn
 
-    def qlable_create(self, inner):
+    def qlabel_create(self, inner):
         temp_lable = QLabel()
         if type(inner) == str:
             temp_lable.setText(inner)
