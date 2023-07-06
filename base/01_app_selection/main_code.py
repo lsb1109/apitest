@@ -520,7 +520,6 @@ class ManualDialog(QDialog):
 
     def app_closed(self):
         self.close()
-        q.put([selected_tab, all_contents_list[selected_tab][selected_app], selected_app])
 
 
 first_app = QApplication([sys.argv,  '--no-sandbox'])
