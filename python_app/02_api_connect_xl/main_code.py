@@ -19,11 +19,6 @@ import urllib.request
 
 import winreg as reg
 
-temp_path = r"C:\Temp\CIM_API_APP"
-
-if os.path.exists(temp_path + "\\ing.txt"):
-    os.remove(temp_path + "\\ing.txt")
-
 # 파일 경로 정의
 
 csv_drive_url = "https://patch.midasit.com/00_MODS/kr/80_WebResource/CIM/lsb1109apptest/2_api_connect_xl/source/"
