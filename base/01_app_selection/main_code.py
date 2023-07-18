@@ -505,7 +505,11 @@ class ManualDialog(QDialog):
                 self.web_widget.setUrl(QUrl("https://kh1012.github.io/sproj-examples/examples/" + js_app_name + "/")
                 )
             else:
-                self.web_widget.setUrl(QUrl("http://127.0.0.1:5500/html_temp_" + str(tab_num) + "/test_html" + str(app_num + 1) + "/index.html"))
+                if app_type_num == 1:
+                    self.web_widget.setUrl(QUrl("http://127.0.0.1:5500/html_temp_" + str(tab_num) + "/test_html" + str(app_num + 1) + "/index.html"))
+                else:
+                    self.web_widget.setUrl(QUrl("http://127.0.0.1:5500/html_per_temp_" + str(tab_num) + "/test_html" + str(app_num + 1) + "/index.html"))
+                
         except:
             pass
 
