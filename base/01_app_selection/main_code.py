@@ -356,6 +356,7 @@ class AppSelection(QDialog):
         return temp_contents_list
 
     def app_list_build(self):
+        global app_type_num
         # independent_btn
         run_icon = AppUICreator.qicon_create(self, run_img)
         self.run_btn = AppUICreator.qbtn_create(self, run_icon, 24, self.ok_fun)
@@ -368,9 +369,12 @@ class AppSelection(QDialog):
 
         all_contents_list.clear()
         self.all_items_layout_list.clear()
+        
+        app_type_num = int(self.app_type_radio0.isChecked())
+        
         for i in range(len(type_icon_img)):
             self.tab_listwidget_list[i].clear()
-            temp_contents_list = self.extract_apps(git_org_root_link + apps_source[int(self.app_type_radio0.isChecked())] + link_bri0 + link_bri1 + selector_list[i])
+            temp_contents_list = self.extract_apps(git_org_root_link + apps_source[app_type_num] + link_bri0 + link_bri1 + selector_list[i])
             temp_item_layout_list = []
             for j in temp_contents_list:
                 item = QListWidgetItem(self.tab_listwidget_list[i])
@@ -386,7 +390,7 @@ class AppSelection(QDialog):
             self.tab_listwidget_list[i].setCurrentRow(0)
 
     def ok_fun(self):
-        version_compare(version_key_type[tab_num], all_contents_list[tab_num][app_num], apps_source[int(self.app_type_radio0.isChecked())])
+        version_compare(version_key_type[tab_num], all_contents_list[tab_num][app_num], apps_source[app_type_num])
         self.close()
 
     def download_fun(self):
@@ -397,11 +401,11 @@ class AppSelection(QDialog):
                 os.makedirs(local_contents_path)
             os.makedirs(temp_xl_file_path)
 
-            temp_file_list = self.extract_apps(git_org_root_link + apps_source[int(self.app_type_radio0.isChecked())] + link_bri0 + link_bri1 + selector_list[1] + xl_file_name)
+            temp_file_list = self.extract_apps(git_org_root_link + apps_source[app_type_num] + link_bri0 + link_bri1 + selector_list[1] + xl_file_name)
 
             for i in temp_file_list:
                 if i != version_json:
-                    url = (git_raw_root_link + apps_source[int(self.app_type_radio0.isChecked())] + link_bri1 + selector_list[1] + xl_file_name + i)
+                    url = (git_raw_root_link + apps_source[app_type_num] + link_bri1 + selector_list[1] + xl_file_name + i)
                     with open(temp_xl_file_path + i, "wb") as file:
                         response = requests.get(url)
                         file.write(response.content)
@@ -520,6 +524,3 @@ dialog = ManualDialog()
 print(time.time() - start)
 
 first_app.exec_()
-
-selected_tab = tab_num
-selected_app = app_num
