@@ -10,6 +10,8 @@ local_contents_path = r"C:\Temp\CIM_API_APP\\"
 git_org_root_link = "https://github.com/"
 git_raw_root_link = "https://raw.githubusercontent.com/"
 midas_link = "lsb1109/apitest/"
+personal_link = "lsb1109/personal/"
+apps_source = [personal_link, midas_link]
 
 link_bri0 = "tree/"
 link_bri1 = "main/"
@@ -28,7 +30,7 @@ def extract_soup(link):
     soup = BeautifulSoup(html, "html.parser", from_encoding="utf-8")
     return soup
 
-def version_compare(target_type, content_name):
+def version_compare(target_type, content_name, link):
     temp_json_path = local_contents_path + version_json
     selector = selector_list[version_key_type.index(target_type)]
     if not os.path.isfile(temp_json_path):
@@ -39,7 +41,7 @@ def version_compare(target_type, content_name):
         with open(temp_json_path, "w") as f:
             json.dump(default_dic, f)
 
-    json_soup = extract_soup(git_raw_root_link + midas_link + link_bri1 + selector + content_name + "/" + version_json)
+    json_soup = extract_soup(git_raw_root_link + link + link_bri1 + selector + content_name + "/" + version_json)
     app_ver_dict = json.loads(str(json_soup))        
     current_app_key = list(app_ver_dict.keys())[0]
     current_app_ver = list(app_ver_dict.values())[0]
@@ -53,7 +55,7 @@ def version_compare(target_type, content_name):
         pass
     else:
         if target_type == version_key_type[0] or target_type == version_key_type[3]:
-            txt_soup = extract_soup(git_raw_root_link + midas_link + link_bri1 + selector +  content_name + "/" + package_txt)
+            txt_soup = extract_soup(git_raw_root_link + link + link_bri1 + selector +  content_name + "/" + package_txt)
             lines = str(txt_soup).splitlines()
             for temp_pkg in lines:
                 main(["install", temp_pkg])
@@ -62,7 +64,7 @@ def version_compare(target_type, content_name):
         with open(temp_json_path, "w") as f:
             json.dump(all_dict, f)
 
-version_compare("tool_ver", "01_app_selection")
+version_compare("tool_ver", "01_app_selection", midas_link)
 # fmt: on
 
 import sys
@@ -92,8 +94,6 @@ type_icon_img = ["py_v2.png", "xl_v2.png", "js_v2.png"]
 version_json = "app_version.json"
 package_txt = "requirements.txt"
 
-personal_link = "lsb1109/personal/"
-apps_source = [personal_link, midas_link]
 
 selection_tool_wh = (300, 650)
 
@@ -386,7 +386,7 @@ class AppSelection(QDialog):
             self.tab_listwidget_list[i].setCurrentRow(0)
 
     def ok_fun(self):
-        version_compare(version_key_type[tab_num], all_contents_list[tab_num][app_num])
+        version_compare(version_key_type[tab_num], all_contents_list[tab_num][app_num], apps_source[int(self.app_type_radio0.isChecked())])
         self.close()
 
     def download_fun(self):
