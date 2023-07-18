@@ -348,7 +348,7 @@ class AppSelection(QDialog):
 
     def extract_apps(self, link):
         soup = extract_soup(link)
-        temp_pages = (str(soup).replace("&quot;", '"').replace("&#039;", "'").replace("&#035;", "#").replace("&nbsp;", " ").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">"))
+        temp_pages = (str(soup).replace("&quot;", "\"").replace("&#039;", "'").replace("&#035;", "#").replace("&nbsp;", " ").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">"))
         app_data_jsons = json.loads(temp_pages)["payload"]["tree"]["items"]
         temp_contents_list = [i["name"] for i in app_data_jsons]
         return temp_contents_list
