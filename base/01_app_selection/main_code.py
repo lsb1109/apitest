@@ -502,7 +502,7 @@ class ManualDialog(QDialog):
         try:
             if tab_num == 2:
                 js_app_name = all_contents_list[tab_num][app_num]
-                self.web_widget.setUrl(QUrl("https://kh1012.github.io/sproj-examples/examples/" + js_app_name + "/")
+                self.web_widget.setUrl(QUrl("https://midasd.github.io/sproj-examples/examples/" + js_app_name + "/")
                 )
             else:
                 if app_type_num == 1:
