@@ -517,7 +517,6 @@ class ManualDialog(QDialog):
         self.close()
     # fmt: on
 
-
 first_app = QApplication([sys.argv, "--no-sandbox"])
 dialog = ManualDialog()
 
