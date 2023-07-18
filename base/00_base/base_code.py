@@ -11,7 +11,7 @@ contents_name = selected_data[1]
 print(contents_name)
 
 if selected_data[0] == 0:
-    second_code = extract_code(py_link_root + str(contents_name) + main_code_name)
+    second_code = extract_code(py_link_root + str(contents_name).replace(" ", "%20") + main_code_name)
     exec(second_code)
 
 elif selected_data[0] == 1:
