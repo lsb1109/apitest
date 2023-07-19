@@ -6,7 +6,7 @@ from PyQt5.QtCore import *
 class Window(QWidget):
     def __init__(self):
         super().__init__()
-        self.label = QLabel("Test Python Code", self)
+        self.label = QLabel("230720 test", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.label.resize(300, 100)
         self.show()
