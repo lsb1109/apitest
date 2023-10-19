@@ -1,15 +1,15 @@
 {
   "rebar list": {
     "path": "/base-mode/rebar",
-    "replace_id": []
+    "convert_info": []
   },
   "member list": {
     "path": "/base-mode/member",
-    "replace_id": []
+    "convert_info": []
   },
   "rebar property": {
     "path": "/base-mode/rebar/transverse?entitykey=",
-    "replace_id": [
+    "convert_info": [
       {
         "old_id": "property/bending radius",
         "new_id": "bending-radius",
@@ -29,7 +29,7 @@
   },
   "constraint plane": {
     "path": "/curve-library-mode/constraint-entity/plane",
-    "replace_id": [
+    "convert_info": [
       {
         "old_id": "plane creation method",
         "new_id": "method",
@@ -54,7 +54,7 @@
   },
   "constraint path": {
     "path": "/curve-library-mode/constraint-entity/path",
-    "replace_id": [
+    "convert_info": [
       {
         "old_id": "select target/select const plane",
         "new_id": "target plane",
