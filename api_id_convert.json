@@ -32,23 +32,48 @@
     "replace_id": [
       {
         "old_id": "plane creation method",
-        "new_id": "create-method",
+        "new_id": "METHOD",
         "type": "option"
       },
       {
         "old_id": "select main path/point distance/distance",
-        "new_id": "location",
+        "new_id": "LOCATION",
         "type": "scalar"
       },
       {
         "old_id": "prop/path alignment start/measurement",
-        "new_id": "alignment.method",
+        "new_id": "ALIGN TYPE",
         "type": "option"
       },
       {
         "old_id": "prop/path alignment start/alignment origin",
-        "new_id": "alignment.reference-point",
+        "new_id": "ALIGN REF",
         "type": "option"
+      }
+    ]
+  },
+  "constraint path": {
+    "path": "/curve-library-mode/constraint-entity/path",
+    "replace_id": [
+      {
+        "old_id": "select target/select const plane",
+        "new_id": "TARGET PLANE",
+        "type": "select"
+      },
+      {
+        "old_id": "main constraint path properties/offsetyfromstart",
+        "new_id": "OFFSET-Y",
+        "type": "scalar"
+      },
+      {
+        "old_id": "main constraint path properties/offsetzfromstart",
+        "new_id": "OFFSET-Z",
+        "type": "scalar"
+      },
+      {
+        "old_id": "use as guide wire",
+        "new_id": "GUIDE PATH",
+        "type": "boolean"
       }
     ]
   }
