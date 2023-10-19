@@ -76,5 +76,15 @@
         "type": "boolean"
       }
     ]
+  },
+  "file open": {
+    "path": "/file",
+    "convert_info": [
+      {
+        "old_id": "filePath",
+        "new_id": "path",
+        "type": "string"
+      }
+    ]
   }
 }
