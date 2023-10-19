@@ -53,7 +53,7 @@
     ]
   },
   "constraint path": {
-    "path": "/curve-library-mode/constraint-entity/path",
+    "path": "/curve-library-mode/constraint-entity/main-path",
     "convert_info": [
       {
         "old_id": "select target/select const plane",
