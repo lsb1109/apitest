@@ -1,0 +1,55 @@
+{
+  "rebar list": {
+    "path": "/base-mode/rebar",
+    "replace_id": []
+  },
+  "member list": {
+    "path": "/base-mode/member",
+    "replace_id": []
+  },
+  "rebar property": {
+    "path": "/base-mode/rebar/transverse?entitykey=",
+    "replace_id": [
+      {
+        "old_id": "property/bending radius",
+        "new_id": "bending-radius",
+        "type": "scalar"
+      },
+      {
+        "old_id": "property/diameter",
+        "new_id": "diameter",
+        "type": "option"
+      },
+      {
+        "old_id": "cover thickness/on plane",
+        "new_id": "cover-thickness-on-plane",
+        "type": "scalar array"
+      }
+    ]
+  },
+  "constraint plane": {
+    "path": "/curve-library-mode/constraint-entity/plane",
+    "replace_id": [
+      {
+        "old_id": "plane creation method",
+        "new_id": "create-method",
+        "type": "option"
+      },
+      {
+        "old_id": "select main path/point distance/distance",
+        "new_id": "location",
+        "type": "scalar"
+      },
+      {
+        "old_id": "prop/path alignment start/measurement",
+        "new_id": "alignment.method",
+        "type": "option"
+      },
+      {
+        "old_id": "prop/path alignment start/alignment origin",
+        "new_id": "alignment.reference-point",
+        "type": "option"
+      }
+    ]
+  }
+}
