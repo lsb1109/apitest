@@ -32,22 +32,22 @@
     "replace_id": [
       {
         "old_id": "plane creation method",
-        "new_id": "METHOD",
+        "new_id": "method",
         "type": "option"
       },
       {
         "old_id": "select main path/point distance/distance",
-        "new_id": "LOCATION",
+        "new_id": "location",
         "type": "scalar"
       },
       {
         "old_id": "prop/path alignment start/measurement",
-        "new_id": "ALIGN TYPE",
+        "new_id": "align type",
         "type": "option"
       },
       {
         "old_id": "prop/path alignment start/alignment origin",
-        "new_id": "ALIGN REF",
+        "new_id": "align ref",
         "type": "option"
       }
     ]
@@ -57,22 +57,22 @@
     "replace_id": [
       {
         "old_id": "select target/select const plane",
-        "new_id": "TARGET PLANE",
+        "new_id": "target plane",
         "type": "select"
       },
       {
         "old_id": "main constraint path properties/offsetyfromstart",
-        "new_id": "OFFSET-Y",
+        "new_id": "offset-y",
         "type": "scalar"
       },
       {
         "old_id": "main constraint path properties/offsetzfromstart",
-        "new_id": "OFFSET-Z",
+        "new_id": "offset-z",
         "type": "scalar"
       },
       {
         "old_id": "use as guide wire",
-        "new_id": "GUIDE PATH",
+        "new_id": "guide path",
         "type": "boolean"
       }
     ]
