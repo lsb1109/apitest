@@ -7,8 +7,8 @@
     "path": "/base-mode/member",
     "convert_info": []
   },
-  "rebar property": {
-    "path": "/base-mode/rebar/transverse?entitykey=",
+  "transverse rebar property": {
+    "path": "/curve-library-mode/rebar/transverse?entitykey=",
     "convert_info": [
       {
         "old_id": "property/bending radius",
@@ -23,6 +23,16 @@
       {
         "old_id": "cover thickness/on plane",
         "new_id": "cover-thickness-on-plane",
+        "type": "scalar array"
+      },
+      {
+        "old_id": "spacing/spacing method",
+        "new_id": "spacing method",
+        "type": "option"
+      },
+      {
+        "old_id": "pacing/pattern spacing",
+        "new_id": "array spacing",
         "type": "scalar array"
       }
     ]
