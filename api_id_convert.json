@@ -98,7 +98,7 @@
     ]
   },
   "curve library": {
-    "path": "/curve-library-mode?librarykey=1",
+    "path": "/curve-library-mode?librarykey=",
     "convert_info": []
   }
 }
