@@ -31,7 +31,7 @@
         "type": "option"
       },
       {
-        "old_id": "pacing/pattern spacing",
+        "old_id": "spacing/pattern spacing",
         "new_id": "array spacing",
         "type": "scalar array"
       }
