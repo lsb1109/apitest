@@ -110,5 +110,35 @@
   "curve library": {
     "path": "/curve-library-mode?librarykey=",
     "convert_info": []
+  },
+  "material": {
+    "path": "/material",
+    "replace_id": [
+      {
+        "old_id": "matltype",
+        "new_id": "type",
+        "type": "option"
+      },
+      {
+        "old_id": "name",
+        "new_id": "name",
+        "type": "string"
+      },
+      {
+        "old_id": "db",
+        "new_id": "from db",
+        "type": "boolean"
+      },
+      {
+        "old_id": "standard",
+        "new_id": "standard",
+        "type": "option"
+      },
+      {
+        "old_id": "grade",
+        "new_id": "grade",
+        "type": "option"
+      }
+    ]
   }
 }
