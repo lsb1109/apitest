@@ -138,6 +138,11 @@
         "old_id": "grade",
         "new_id": "grade",
         "type": "option"
+      },
+      {
+        "old_id": "weight",
+        "new_id": "weight",
+        "type": "scalar"
       }
     ]
   }
