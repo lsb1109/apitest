@@ -113,7 +113,7 @@
   },
   "material": {
     "path": "/material",
-    "replace_id": [
+    "convert_info": [
       {
         "old_id": "matltype",
         "new_id": "type",
