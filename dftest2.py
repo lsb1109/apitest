@@ -8,7 +8,6 @@ import pandas as pd
 import time
 
 # fmt: off
-
 converter_path = "https://raw.githubusercontent.com/lsb1109/apitest/main/api_id_convert.json"
 converter_get = requests.get(converter_path)
 converter = ast.literal_eval(converter_get.content.decode("utf8"))
@@ -21,18 +20,12 @@ ui_lock_opt = 0
 
 global_css = """
   <style>
-    .st-emotion-cache-16txtl3 {
-        margin-top: -70px;
-    }
-    .st-emotion-cache-z5fcl4 {
-        margin-top: -70px;
-    }
-    .st-emotion-cache-64tehz {
-        gap: 16px;
-    }
-    hr {
-        margin: 0px auto;
-    }
+    .st-emotion-cache-16txtl3 {margin-top: -70px;}
+    .st-emotion-cache-z5fcl4 {margin-top: -70px;}
+    .st-emotion-cache-64tehz {gap: 16px;}
+    hr {margin: 0px auto;}
+    .row_heading.level0 {display:none;}
+    .blank {display:none;}
   </style>
 """
 
@@ -40,6 +33,7 @@ global_css = """
 st.set_page_config(layout="wide")
 st.title("User Custom csv Runner")
 
+@st.cache_resource
 class DataConverter:
     def data_type_convert(data, type):
         function_name = "convert_" + type.replace(" ", "_")
@@ -84,6 +78,7 @@ class DataConverter:
             temp_data = False
         return temp_data
 
+@st.cache_resource
 class TextFormatRunner:
     def reg2apikey(text):
         header = {"MAPI-Key": text}
